@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../models/movie_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../Bloc/cinema_bloc.dart';
-import './buy_ticket_page.dart';
+import 'buy_ticket_screen.dart';
 import '../widgets/widgets.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 

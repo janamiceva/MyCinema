@@ -8,7 +8,7 @@ import '../models/armchairs_model.dart';
 import '../models/datetime_model.dart';
 import '../widgets/seats.dart';
 
-import '../screens/details_payment_page.dart';
+import 'details_payment_screen.dart';
 import '../widgets/widgets.dart';
 
 class BuyTicketPage extends StatelessWidget {
