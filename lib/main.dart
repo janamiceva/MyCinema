@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mycinema/screens/welcome_screen.dart';
+import 'package:mycinema/screens/auth_screen.dart';
+import 'package:provider/provider.dart';
+import './helpers/auth.dart';
+import './screens/welcome_screen.dart';
 
 void main(List<String> args) {
   runApp(MyApp());
@@ -8,12 +11,20 @@ void main(List<String> args) {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        scaffoldBackgroundColor: Colors.black,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(
+          value: Auth(),
+        )
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          scaffoldBackgroundColor: Colors.black,
+        ),
+        home: AuthScreen(),
+        routes: {'/welcomePage': ((context) => WelcomeScreen())},
       ),
-      home: WelcomeScreen(),
     );
   }
 }
