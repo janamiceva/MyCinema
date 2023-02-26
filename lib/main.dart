@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          scaffoldBackgroundColor: Colors.black,
+          scaffoldBackgroundColor: Colors.deepPurple.shade700,
         ),
         home: AuthScreen(),
         routes: {'/welcomePage': ((context) => WelcomeScreen())},

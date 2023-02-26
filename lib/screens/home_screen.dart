@@ -1,10 +1,12 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:mycinema/screens/details_payment_page.dart';
 import '../models/movie_model.dart';
 import '../models/trailers_model.dart';
 import '../screens/details_movie_page.dart';
 import '../widgets/widgets.dart';
+import '../screens/profile_screen.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
@@ -95,26 +97,32 @@ class HomeScreen extends StatelessWidget {
             color: Colors.white,
             activeColor: Colors.white,
             padding: EdgeInsets.all(10),
-            tabs: const [
+            tabs:  [
               GButton(
                 icon: Icons.home,
                 text: 'Home',
+                onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>HomeScreen()));
+              },  
               ),
               GButton(
                 icon: Icons.search,
-                text: 'Search',
+                text: 'Search', 
               ),
               GButton(
                 icon: Icons.view_module_rounded,
-                text: 'Location',
+                text: 'Location', 
               ),
               GButton(
                 icon: Icons.local_attraction_rounded,
-                text: 'Tickets',
+                text: 'Tickets',       
               ),
               GButton(
                 icon: Icons.person_rounded,
                 text: 'Profile',
+                onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfileScreen()));
+              },  
               ),
             ],
           ),
