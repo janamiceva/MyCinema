@@ -26,7 +26,7 @@ class SeatsRow extends StatelessWidget {
                 child: BlocBuilder<CinemaBloc, CinemaState>(
                     builder: (_, state) => PaintChair(
                         color: state.selectedSeats.contains('$rowSeats${i + 1}')
-                            ? Colors.amber
+                            ? Colors.pink
                             : Colors.white)));
           }
 

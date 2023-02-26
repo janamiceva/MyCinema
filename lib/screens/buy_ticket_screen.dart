@@ -63,7 +63,7 @@ class BuyTicketPage extends StatelessWidget {
                     icon: Row(
                       children: [
                         Icon(Icons.arrow_back_ios_new_rounded,
-                            color: Colors.white),
+                            color: Colors.pink),
                         SizedBox(width: 20.0),
                         TextFrave(
                             text: titleMovie,
@@ -139,7 +139,7 @@ class BuyTicketPage extends StatelessWidget {
                 alignment: Alignment.center,
                 height: 55,
                 decoration: BoxDecoration(
-                    color: Colors.amber,
+                    color: Colors.pink,
                     borderRadius: BorderRadius.circular(8.0)),
                 child: TextFrave(
                     text: 'Buy Ticket \$ 55.0', fontWeight: FontWeight.bold),
@@ -184,9 +184,9 @@ class _ItemsDescription extends StatelessWidget {
           ),
           Row(
             children: [
-              Icon(Icons.circle, color: Colors.amber, size: 10),
+              Icon(Icons.circle, color: Colors.pink, size: 10),
               SizedBox(width: 10.0),
-              TextFrave(text: 'Selected', fontSize: 20, color: Colors.amber)
+              TextFrave(text: 'Selected', fontSize: 20, color: Colors.pink)
             ],
           ),
         ],
@@ -213,7 +213,7 @@ class _ItemTime extends StatelessWidget {
               alignment: Alignment.center,
               padding: EdgeInsets.symmetric(horizontal: 18.0),
               decoration: BoxDecoration(
-                  color: state.time == time ? Colors.amber : Color(0xff4D525A),
+                  color: state.time == time ? Colors.pink : Color(0xff4D525A),
                   borderRadius: BorderRadius.circular(8.0)),
               child: TextFrave(text: time, color: Colors.white, fontSize: 16)),
         ),
@@ -241,7 +241,7 @@ class _ItemDate extends StatelessWidget {
             width: 75,
             decoration: BoxDecoration(
                 color: state.date == date.number
-                    ? Colors.amber
+                    ? Colors.pink
                     : Color(0xff4A5660),
                 borderRadius: BorderRadius.circular(15.0)),
             child: Column(

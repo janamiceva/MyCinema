@@ -107,7 +107,7 @@ class DetailsPaymentPage extends StatelessWidget {
                       height: 120,
                       width: 120,
                       child: Image(
-                          image: AssetImage('Assets/qr-code-github-frave.png')),
+                          image: AssetImage('images/qrcode.png')),
                     )
                   ],
                 ),

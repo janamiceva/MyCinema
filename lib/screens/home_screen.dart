@@ -113,6 +113,10 @@ class HomeScreen extends StatelessWidget {
               ),
               GButton(
                 icon: Icons.local_attraction_rounded,
+                onPressed: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => DetailsPaymentPage()));
+                },
               ),
               GButton(
                 icon: Icons.person_rounded,
