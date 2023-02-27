@@ -9,6 +9,7 @@ import '../widgets/widgets.dart';
 import '../screens/profile_screen.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import '../helpers/search_bar.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -107,6 +108,13 @@ class HomeScreen extends StatelessWidget {
               ),
               GButton(
                 icon: Icons.search,
+                onPressed: () {
+                  // method to show the search bar
+                  showSearch(
+                      context: context,
+                      // delegate to customize the search bar
+                      delegate: CustomSearchDelegate());
+                },
               ),
               GButton(
                 icon: Icons.view_module_rounded,
@@ -114,8 +122,8 @@ class HomeScreen extends StatelessWidget {
               GButton(
                 icon: Icons.local_attraction_rounded,
                 onPressed: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => DetailsPaymentPage()));
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => DetailsPaymentPage()));
                 },
               ),
               GButton(
