@@ -4,6 +4,8 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import '../helpers/components.dart';
 import 'details_payment_screen.dart';
 import 'home_screen.dart';
+import '../helpers/search_bar.dart';
+import 'location_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   static String routeName = "/profile";
@@ -24,7 +26,11 @@ class ProfileScreen extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
           ),
-          Icon(Icons.location_on),
+          IconButton(onPressed: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => LocationScreen()));
+                },
+          icon: Icon(Icons.location_pin)),
           SizedBox(width: 15.0),
         ],
       ),
@@ -53,6 +59,13 @@ class ProfileScreen extends StatelessWidget {
               ),
               GButton(
                 icon: Icons.search,
+                onPressed: () {
+                  // method to show the search bar
+                  showSearch(
+                      context: context,
+                      // delegate to customize the search bar
+                      delegate: CustomSearchDelegate());
+                },
               ),
               GButton(
                 icon: Icons.view_module_rounded,

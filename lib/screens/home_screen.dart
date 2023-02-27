@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:mycinema/screens/details_payment_screen.dart';
+import 'package:mycinema/screens/location_screen.dart';
 import '../models/movie_model.dart';
 import '../models/trailers_model.dart';
 import 'details_movie_screen.dart';
@@ -29,7 +30,11 @@ class HomeScreen extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
           ),
-          Icon(Icons.location_on),
+         IconButton(onPressed: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => LocationScreen()));
+                },
+          icon: Icon(Icons.location_pin)),
           SizedBox(width: 15.0),
         ],
       ),
