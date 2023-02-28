@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:mycinema/screens/details_payment_screen.dart';
 import 'package:mycinema/screens/location_screen.dart';
+import 'package:mycinema/screens/review_screen.dart';
 import '../models/movie_model.dart';
 import '../models/trailers_model.dart';
 import 'details_movie_screen.dart';
@@ -123,6 +124,11 @@ class HomeScreen extends StatelessWidget {
               ),
               GButton(
                 icon: Icons.view_module_rounded,
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => ReviewScreen()));
+                },
+                
               ),
               GButton(
                 icon: Icons.local_attraction_rounded,
