@@ -6,6 +6,7 @@ import 'details_payment_screen.dart';
 import 'home_screen.dart';
 import '../helpers/search_bar.dart';
 import 'location_screen.dart';
+import 'review_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   static String routeName = "/profile";
@@ -88,6 +89,10 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     GButton(
                       icon: Icons.view_module_rounded,
+                      onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => ReviewScreen()));
+                },
                     ),
                     GButton(
                       icon: Icons.local_attraction_rounded,

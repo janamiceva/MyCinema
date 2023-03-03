@@ -4,6 +4,9 @@ import 'dart:io';
 
 import 'package:camera/camera.dart';
 
+import 'location_screen.dart';
+import 'review_screen.dart';
+
 void main() async {
   runApp(const MyApp());
 }
@@ -16,7 +19,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'VetX',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: Colors.purple.shade300,
       ),
       routes: {
         '/photo/take': (_) => const TakePhotoPage(),
@@ -34,7 +37,7 @@ class TakePhotoPage extends StatefulWidget {
 }
 
 class TakePhotoPageState extends State<TakePhotoPage> {
-   CameraController _controller;
+  CameraController _controller;
   bool isCameraReady = false;
   bool isPhotoInProgress = false;
 
@@ -75,8 +78,36 @@ class TakePhotoPageState extends State<TakePhotoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-            backgroundColor: Colors.deepPurple.shade700,
-      appBar: AppBar(title: const Text('Take a picture')),
+      backgroundColor: Colors.purple.shade300,
+      appBar: AppBar(
+        backgroundColor: Colors.purple.shade300,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white, size: 20),
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => ReviewScreen()),
+            );
+          },
+        ),
+        elevation: 4,
+        title: Center(
+          child: Text(
+            'Take a picture',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          ),
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => LocationScreen()),
+              );
+            },
+            icon: Icon(Icons.location_pin),
+          ),
+          SizedBox(width: 15.0),
+        ],
+      ),
       // You must wait until the controller is initialized before displaying the
       // camera preview. Use a FutureBuilder to display a loading spinner until the
       // controller has finished initializing.
@@ -94,8 +125,8 @@ class TakePhotoPageState extends State<TakePhotoPage> {
                     ],
                   ),
                 ),
-              ]):
-              TextFormField(),
+              ])
+            : TextFormField(),
       ),
     );
   }

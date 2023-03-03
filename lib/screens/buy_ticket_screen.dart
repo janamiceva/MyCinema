@@ -143,7 +143,7 @@ class BuyTicketPage extends StatelessWidget {
                     color: Colors.pink,
                     borderRadius: BorderRadius.circular(8.0)),
                 child: TextFrave(
-                    text: 'Buy Ticket \$ 55.0', fontWeight: FontWeight.bold),
+                    text: 'Book tickets', fontWeight: FontWeight.bold),
               ),
             ),
           ),
