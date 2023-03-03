@@ -23,7 +23,7 @@ class _ScreenCinemaPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = Colors.white
+      ..color = Colors.pink
       ..style = PaintingStyle.stroke
       ..strokeWidth = 3.0;
 

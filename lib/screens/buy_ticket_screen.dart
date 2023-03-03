@@ -10,6 +10,7 @@ import '../widgets/seats.dart';
 
 import 'details_payment_screen.dart';
 import '../widgets/widgets.dart';
+import 'credit_card_screen.dart';
 
 class BuyTicketPage extends StatelessWidget {
   final String titleMovie;
@@ -134,7 +135,7 @@ class BuyTicketPage extends StatelessWidget {
             bottom: 20,
             child: InkWell(
               onTap: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (_) => DetailsPaymentPage())),
+                  MaterialPageRoute(builder: (_) => CreditCardPage())),
               child: Container(
                 alignment: Alignment.center,
                 height: 55,

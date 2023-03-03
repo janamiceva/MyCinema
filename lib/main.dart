@@ -10,7 +10,8 @@ void main(List<String> args) {
 }
 
 class MyApp extends StatelessWidget {
-    final cinemaBloc = CinemaBloc();
+  final cinemaBloc = CinemaBloc();
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -18,18 +19,33 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider.value(
           value: Auth(),
         ),
-         Provider<CinemaBloc>(
+        Provider<CinemaBloc>(
           create: (_) => CinemaBloc(),
         ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          scaffoldBackgroundColor: Colors.deepPurple.shade700,
+          scaffoldBackgroundColor: Colors.purple.shade300,
         ),
         home: AuthScreen(),
         routes: {'/welcomePage': ((context) => WelcomeScreen())},
       ),
+      builder: (context, child) {
+        return Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [Colors.purple.shade300, Colors.pink.shade100],
+            ),
+          ),
+          child: child,
+        );
+      },
     );
   }
 }
+
+
+

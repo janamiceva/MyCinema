@@ -12,80 +12,102 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.deepPurple.shade700,
-        leading: Icon(Icons.arrow_back, color: Colors.white, size: 20),
-        elevation: 4,
-        actions: [
-          Container(
-            padding: EdgeInsets.only(top: 20),
-            height: 10,
-            width: 200,
-            child: Text(
+      backgroundColor: Colors.transparent,
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [Colors.purple.shade300, Colors.pink.shade100],
+          ),
+        ),
+        child: Column(
+          children: [
+            AppBar(
+              backgroundColor: Colors.purple.shade300,
+              leading: IconButton(
+                icon: Icon(Icons.arrow_back, color: Colors.white, size: 20),
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => HomeScreen()),
+                  );
+                },
+              ),
+              elevation: 4,
+              title: Center(
+              child: Text(
               'Profile',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              ),
             ),
-          ),
-          IconButton(onPressed: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => LocationScreen()));
-                },
-          icon: Icon(Icons.location_pin)),
-          SizedBox(width: 15.0),
-        ],
-      ),
-      body: Body(),
-      bottomNavigationBar: Container(
-        height: 50,
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [Colors.purple.shade300, Colors.pink.shade100])),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 0.0),
-          child: GNav(
-            backgroundColor: Colors.transparent,
-            color: Colors.white,
-            activeColor: Colors.white,
-            padding: EdgeInsets.all(10),
-            tabs: [
-              GButton(
-                icon: Icons.home,
-                onPressed: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => HomeScreen()));
-                },
+              actions: [
+                IconButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => LocationScreen()),
+                    );
+                  },
+                  icon: Icon(Icons.location_pin),
+                ),
+                SizedBox(width: 15.0),
+              ],
+            ),
+            Expanded(child: Body()),
+            Container(
+              height: 50,
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [Colors.purple.shade300, Colors.pink.shade100])),
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 0.0, vertical: 0.0),
+                child: GNav(
+                  backgroundColor: Colors.transparent,
+                  color: Colors.white,
+                  activeColor: Colors.white,
+                  padding: EdgeInsets.all(10),
+                  tabs: [
+                    GButton(
+                      icon: Icons.home,
+                      onPressed: () {
+                        Navigator.of(context).push(
+                            MaterialPageRoute(builder: (context) => HomeScreen()));
+                      },
+                    ),
+                    GButton(
+                      icon: Icons.search,
+                      onPressed: () {
+                        // method to show the search bar
+                        showSearch(
+                            context: context,
+                            // delegate to customize the search bar
+                            delegate: CustomSearchDelegate());
+                      },
+                    ),
+                    GButton(
+                      icon: Icons.view_module_rounded,
+                    ),
+                    GButton(
+                      icon: Icons.local_attraction_rounded,
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => DetailsPaymentPage()));
+                      },
+                    ),
+                    GButton(
+                      icon: Icons.person_rounded,
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => ProfileScreen()));
+                      },
+                    ),
+                  ],
+                ),
               ),
-              GButton(
-                icon: Icons.search,
-                onPressed: () {
-                  // method to show the search bar
-                  showSearch(
-                      context: context,
-                      // delegate to customize the search bar
-                      delegate: CustomSearchDelegate());
-                },
-              ),
-              GButton(
-                icon: Icons.view_module_rounded,
-              ),
-              GButton(
-                icon: Icons.local_attraction_rounded,
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => DetailsPaymentPage()));
-                },
-              ),
-              GButton(
-                icon: Icons.person_rounded,
-                onPressed: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => ProfileScreen()));
-                },
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

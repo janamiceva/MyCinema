@@ -23,7 +23,7 @@ class CustomSearchDelegate extends SearchDelegate {
     return theme.copyWith(
       appBarTheme: theme.appBarTheme.copyWith(
         backgroundColor:
-            Colors.deepPurple, // Set the app bar background color to red
+            Colors.purple.shade300, // Set the app bar background color to red
       ),
     );
   }
