@@ -31,7 +31,7 @@ class _MileniumReviewScreenState extends State<MileniumReviewScreen> {
           icon: Icon(Icons.arrow_back, color: Colors.white, size: 20),
           onPressed: () {
             Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => ReviewScreen()),
+              MaterialPageRoute(builder: (context) => HomeScreen()),
             );
           },
         ),

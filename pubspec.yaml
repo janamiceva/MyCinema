@@ -36,6 +36,8 @@ dependencies:
   path_provider: ^2.0.9
   path: ^1.8.0
   flutter_credit_card: ^2.0.0
+  google_maps_flutter: ^2.2.4
+  geolocator: ^7.4.0
 
 
 
