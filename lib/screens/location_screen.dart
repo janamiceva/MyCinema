@@ -123,7 +123,7 @@ class _LocationScreenState extends State<LocationScreen> {
                                 width: 50,
                               ),
                               Text(
-                                "${data.cinemas[index]['distance'].round()} KM",
+                                "${data.cinemas[index]['distance']} KM",
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w400,

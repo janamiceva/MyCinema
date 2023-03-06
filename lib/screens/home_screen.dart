@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:mycinema/screens/details_payment_screen.dart';
 import 'package:mycinema/screens/location_screen.dart';
-import 'package:mycinema/screens/review_screen.dart';
 import 'package:mycinema/screens/welcome_screen.dart';
 import '../models/movie_model.dart';
 import '../models/trailers_model.dart';
@@ -18,42 +17,42 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:   AppBar(
-    backgroundColor: Colors.purple.shade300,
-    leading: IconButton(
-      icon: Icon(Icons.arrow_back, color: Colors.white, size: 20),
-      onPressed: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => WelcomeScreen()),
-        );
-      },
-    ),
-    elevation: 4,
-    title: Center(
-    child: Text(
-      'MyCinema',
-      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-    ),
-  ),
-    actions: [
-      IconButton(
-        onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => LocationScreen()),
-          );
-        },
-        icon: Icon(Icons.location_pin),
+      appBar: AppBar(
+        backgroundColor: Colors.purple.shade300,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white, size: 20),
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => WelcomeScreen()),
+            );
+          },
+        ),
+        elevation: 4,
+        title: Center(
+          child: Text(
+            'MyCinema',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          ),
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => LocationScreen()),
+              );
+            },
+            icon: Icon(Icons.location_pin),
+          ),
+          SizedBox(width: 15.0),
+        ],
       ),
-      SizedBox(width: 15.0),
-    ],
-  ),
-
       body: Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [Colors.purple.shade300, Colors.pink.shade100],)),
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Colors.purple.shade300, Colors.pink.shade100],
+        )),
         child: ListView(
           physics: BouncingScrollPhysics(),
           padding: EdgeInsets.symmetric(vertical: 10.0),
@@ -135,9 +134,8 @@ class HomeScreen extends StatelessWidget {
                 icon: Icons.view_module_rounded,
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => ReviewScreen()));
+                      builder: (context) => LocationScreen()));
                 },
-                
               ),
               GButton(
                 icon: Icons.local_attraction_rounded,

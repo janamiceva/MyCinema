@@ -6,7 +6,6 @@ import 'details_payment_screen.dart';
 import 'home_screen.dart';
 import '../helpers/search_bar.dart';
 import 'location_screen.dart';
-import 'review_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   static String routeName = "/profile";
@@ -36,11 +35,11 @@ class ProfileScreen extends StatelessWidget {
               ),
               elevation: 4,
               title: Center(
-              child: Text(
-              'Profile',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                child: Text(
+                  'Profile',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                ),
               ),
-            ),
               actions: [
                 IconButton(
                   onPressed: () {
@@ -73,8 +72,8 @@ class ProfileScreen extends StatelessWidget {
                     GButton(
                       icon: Icons.home,
                       onPressed: () {
-                        Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context) => HomeScreen()));
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => HomeScreen()));
                       },
                     ),
                     GButton(
@@ -90,9 +89,9 @@ class ProfileScreen extends StatelessWidget {
                     GButton(
                       icon: Icons.view_module_rounded,
                       onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => ReviewScreen()));
-                },
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => LocationScreen()));
+                      },
                     ),
                     GButton(
                       icon: Icons.local_attraction_rounded,

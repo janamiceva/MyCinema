@@ -12,8 +12,6 @@ import 'camera_screen.dart';
 import 'profile_screen.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-import 'review_screen.dart';
-
 class MileniumReviewScreen extends StatefulWidget {
   static const String routeName = "/review";
 

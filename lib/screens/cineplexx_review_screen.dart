@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:mycinema/screens/review_screen.dart';
 import 'package:path_provider/path_provider.dart';
 import '../helpers/components.dart';
 import '../helpers/search_bar.dart';

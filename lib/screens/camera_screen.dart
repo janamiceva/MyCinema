@@ -5,7 +5,6 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 
 import 'location_screen.dart';
-import 'review_screen.dart';
 
 void main() async {
   runApp(const MyApp());
@@ -85,7 +84,7 @@ class TakePhotoPageState extends State<TakePhotoPage> {
           icon: Icon(Icons.arrow_back, color: Colors.white, size: 20),
           onPressed: () {
             Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => ReviewScreen()),
+              MaterialPageRoute(builder: (context) => LocationScreen()),
             );
           },
         ),
