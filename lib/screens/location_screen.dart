@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'home_screen.dart';
 import '../helpers/location_helper.dart';
+import '../helpers/map.dart';
 
 class LocationScreen extends StatefulWidget {
   const LocationScreen({Key key}) : super(key: key);
@@ -99,14 +100,15 @@ class _LocationScreenState extends State<LocationScreen> {
         ),
         body: Column(children: [
           Container(
-            width: double.infinity,
-            height: height * 0.4,
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-            child: Image.network(
-              _locationImage ?? '',
-              fit: BoxFit.cover,
-            ),
-          ),
+              width: double.infinity,
+              height: height * 0.4,
+              decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(10)),
+              // child: Image.network(
+              //   _locationImage ?? '',
+              //   fit: BoxFit.cover,
+              // )),
+              child: MapSample()),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(10, 30, 10, 0),
