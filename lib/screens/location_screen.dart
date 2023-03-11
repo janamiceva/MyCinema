@@ -50,7 +50,7 @@ class _LocationScreenState extends State<LocationScreen> {
       );
       var distance = distanceImMeter.round().toInt();
 
-      data.cinemas[i]['distance'] = (distance / 100);
+      data.cinemas[i]['distance'] = (distance / 1000);
 
       setState(() {
         _locationImage = _staticImage;
