@@ -67,6 +67,7 @@ class CustomSearchDelegate extends SearchDelegate {
       itemBuilder: (context, index) {
         var result = matchQuery[index];
         return Card(
+          color: Colors.purple.shade200,
           child: Column(
             children: [
               Image.asset(
@@ -107,7 +108,7 @@ class CustomSearchDelegate extends SearchDelegate {
       itemBuilder: (context, index) {
         var result = matchQuery[index];
         return Card(
-          color: Colors.black,
+          color: Colors.purple.shade200,
           child: Row(
             children: [
               Image.asset(

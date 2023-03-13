@@ -10,7 +10,7 @@ class DetailsPaymentPage extends StatelessWidget {
     final cinemabloc = BlocProvider.of<CinemaBloc>(context);
 
     return Scaffold(
-      backgroundColor: Color(0xff21242C),
+      backgroundColor: Color(0xffba68c8),
       body: SafeArea(
         child: Stack(
           children: [
@@ -106,8 +106,7 @@ class DetailsPaymentPage extends StatelessWidget {
                     SizedBox(
                       height: 120,
                       width: 120,
-                      child: Image(
-                          image: AssetImage('images/qrcode.png')),
+                      child: Image(image: AssetImage('images/qrcode.png')),
                     )
                   ],
                 ),
