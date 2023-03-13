@@ -1,16 +1,9 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:camera/camera.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:path_provider/path_provider.dart';
-import '../helpers/components.dart';
-import '../helpers/search_bar.dart';
-import 'details_payment_screen.dart';
+import 'package:mycinema/screens/review_screen.dart';
 import 'home_screen.dart';
 import 'location_screen.dart';
-import 'camera_screen.dart';
-import 'profile_screen.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -226,6 +219,7 @@ class _MileniumReviewScreenState extends State<MileniumReviewScreen> {
                   String itemReview = _controllerReview.text;
                   //Create a Map of data
                   Map<String, Object> dataToSend = {
+                    'cinema': 'Kino Milenium',
                     'review': itemReview,
                     'image': imageUrl,
                     'stars':stars,
@@ -234,8 +228,10 @@ class _MileniumReviewScreenState extends State<MileniumReviewScreen> {
                   //Add a new item
                   _reference.add(dataToSend);
                 }
+                Navigator.of(context).push(
+                   MaterialPageRoute(builder: (context) => ReviewList()));
               },
-              child: Text('Submit'))
+              child: Text('Submit'),)
         ],
       ),
     );

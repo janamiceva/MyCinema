@@ -1,19 +1,13 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:camera/camera.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:path_provider/path_provider.dart';
-import '../helpers/components.dart';
-import '../helpers/search_bar.dart';
-import 'details_payment_screen.dart';
 import 'home_screen.dart';
 import 'location_screen.dart';
-import 'camera_screen.dart';
-import 'profile_screen.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+
+import 'review_screen.dart';
 
 class CineplexxReviewScreen extends StatefulWidget {
   static const String routeName = "/review";
@@ -30,7 +24,7 @@ class _CineplexxReviewScreenState extends State<CineplexxReviewScreen> {
   CollectionReference _reference =
       FirebaseFirestore.instance.collection('list_reviews');
   String imageUrl = '';
-  double stars ;
+  double stars;
 
   @override
   Widget build(BuildContext context) {
@@ -171,7 +165,7 @@ class _CineplexxReviewScreenState extends State<CineplexxReviewScreen> {
                     ),
                     onRatingUpdate: (rating) {
                       print(rating);
-                      stars=rating;
+                      stars = rating;
                     },
                   ),
                 ],
@@ -214,7 +208,9 @@ class _CineplexxReviewScreenState extends State<CineplexxReviewScreen> {
           ),
           SizedBox(width: 25),
           ElevatedButton(
-              style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.deepPurple.shade700)),
+              style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all(Colors.deepPurple.shade700)),
               onPressed: () async {
                 if (imageUrl.isEmpty) {
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -226,14 +222,17 @@ class _CineplexxReviewScreenState extends State<CineplexxReviewScreen> {
                   String itemReview = _controllerReview.text;
                   //Create a Map of data
                   Map<String, Object> dataToSend = {
+                    'cinema': 'Cineplexx',
                     'review': itemReview,
                     'image': imageUrl,
-                    'stars':stars,
+                    'stars': stars,
                   };
 
                   //Add a new item
                   _reference.add(dataToSend);
                 }
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => ReviewList()));
               },
               child: Text('Submit'))
         ],
