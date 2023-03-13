@@ -37,12 +37,13 @@ dependencies:
   path: ^1.8.0
   flutter_credit_card: ^2.0.0
   geolocator: ^7.4.0
-  cloud_firestore: ^1.0.5
-  firebase_core: ^1.0.3
+  firebase_core: ^2.7.1
   dio: ^4.0.0
   flutter_polyline_points: ^0.2.6
   google_maps_flutter: ^2.0.2
-
+  image_picker: ^0.8.4+4
+  firebase_storage: ^11.0.15
+  cloud_firestore: ^4.4.4
 
 
 

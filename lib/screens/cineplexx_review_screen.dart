@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -11,6 +12,8 @@ import 'location_screen.dart';
 import 'camera_screen.dart';
 import 'profile_screen.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class CineplexxReviewScreen extends StatefulWidget {
   static const String routeName = "/review";
@@ -20,6 +23,15 @@ class CineplexxReviewScreen extends StatefulWidget {
 }
 
 class _CineplexxReviewScreenState extends State<CineplexxReviewScreen> {
+  TextEditingController _controllerReview = TextEditingController();
+
+  GlobalKey<FormState> key = GlobalKey();
+
+  CollectionReference _reference =
+      FirebaseFirestore.instance.collection('list_reviews');
+  String imageUrl = '';
+  double stars ;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -114,27 +126,31 @@ class _CineplexxReviewScreenState extends State<CineplexxReviewScreen> {
               ),
             ),
             SizedBox(height: 25),
-            Expanded(
-              child: ListView(
-                children: [
-                  Container(
-                    margin: EdgeInsets.all(10.0),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15.0),
-                          borderSide: BorderSide(
-                            color: Colors.blueAccent,
-                            width: 12.0,
+            Form(
+              key: key,
+              child: Expanded(
+                child: ListView(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.all(10.0),
+                      child: TextFormField(
+                        controller: _controllerReview,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                            borderSide: BorderSide(
+                              color: Colors.blueAccent,
+                              width: 12.0,
+                            ),
                           ),
+                          hintText: 'Enter review..',
                         ),
-                        hintText: 'Enter review..',
+                        maxLines: 20,
+                        minLines: 5,
                       ),
-                      maxLines: 20,
-                      minLines: 5,
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             Expanded(
@@ -155,6 +171,7 @@ class _CineplexxReviewScreenState extends State<CineplexxReviewScreen> {
                     ),
                     onRatingUpdate: (rating) {
                       print(rating);
+                      stars=rating;
                     },
                   ),
                 ],
@@ -163,18 +180,63 @@ class _CineplexxReviewScreenState extends State<CineplexxReviewScreen> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.deepPurple.shade700,
-        onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => TakePhotoPage(),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          FloatingActionButton(
+            backgroundColor: Colors.deepPurple.shade700,
+            onPressed: () async {
+              ImagePicker imagePicker = ImagePicker();
+              XFile file =
+                  await imagePicker.pickImage(source: ImageSource.camera);
+              print('${file?.path}');
+
+              if (file == null) return;
+              String uniqueFileName =
+                  DateTime.now().millisecondsSinceEpoch.toString();
+
+              Reference referenceRoot = FirebaseStorage.instance.ref();
+              Reference referenceDirImages = referenceRoot.child('images');
+
+              Reference referenceImageToUpload =
+                  referenceDirImages.child(uniqueFileName);
+
+              try {
+                await referenceImageToUpload.putFile(File(file.path));
+                imageUrl = await referenceImageToUpload.getDownloadURL();
+              } catch (error) {
+                //Some error occurred
+              }
+            },
+            child: Icon(
+              Icons.photo_camera_outlined,
             ),
-          );
-        },
-        child: Icon(
-          Icons.photo_camera_outlined,
-        ),
+          ),
+          SizedBox(width: 25),
+          ElevatedButton(
+              style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.deepPurple.shade700)),
+              onPressed: () async {
+                if (imageUrl.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Please upload an image')));
+
+                  return;
+                }
+                if (key.currentState.validate()) {
+                  String itemReview = _controllerReview.text;
+                  //Create a Map of data
+                  Map<String, Object> dataToSend = {
+                    'review': itemReview,
+                    'image': imageUrl,
+                    'stars':stars,
+                  };
+
+                  //Add a new item
+                  _reference.add(dataToSend);
+                }
+              },
+              child: Text('Submit'))
+        ],
       ),
     );
   }

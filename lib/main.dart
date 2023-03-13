@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:mycinema/screens/auth_screen.dart';
 import 'package:provider/provider.dart';
@@ -5,7 +6,9 @@ import './helpers/auth.dart';
 import './screens/welcome_screen.dart';
 import './Bloc/cinema_bloc.dart';
 
-void main(List<String> args) {
+void main(List<String> args)  async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "150147386252",
+    "firebase_url": "https://mycinema-37b45-default-rtdb.firebaseio.com",
+    "project_id": "mycinema-37b45",
+    "storage_bucket": "mycinema-37b45.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:150147386252:android:921be40f96e67e813ca4a9",
+        "android_client_info": {
+          "package_name": "com.example.mycinema"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "150147386252-aos968e7i1b27khnpc2vadv2vojerpju.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVNUGiYqtQy9V8uQe8cvIKM6q-Pzx7Zuw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "150147386252-aos968e7i1b27khnpc2vadv2vojerpju.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
