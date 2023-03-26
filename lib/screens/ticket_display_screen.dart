@@ -156,7 +156,7 @@ if (latestTicket == null) {
                           Column(
                             children: [
                               TextFrave(
-                                  text: 'Date:',
+                                  text: 'DATE:',
                                   color: Colors.grey,
                                   fontSize: 16),
                               TextFrave(text: latestTicket['date']),
@@ -169,7 +169,7 @@ if (latestTicket == null) {
                                   color: Colors.grey,
                                   fontSize: 16),
                               TextFrave(
-                                text: latestTicket['date'],
+                                text: latestTicket['tickets'],
                                 )
                             ],
                           ),
@@ -184,7 +184,7 @@ if (latestTicket == null) {
                           Column(
                             children: [
                               TextFrave(
-                                  text: 'Time: ',
+                                  text: 'TIME: ',
                                   color: Colors.grey,
                                   fontSize: 16),
                               TextFrave(text: latestTicket['time']),
@@ -193,12 +193,12 @@ if (latestTicket == null) {
                           Column(
                             children: [
                               TextFrave(
-                                  text: 'Seats:',
+                                  text: 'SEATS:',
                                   color: Colors.grey,
                                   fontSize: 16),
                               Row(
                                 children: List.generate(
-                                    cinemabloc.state.selectedSeats.length, (i) {
+                                    latestTicket['selectedSeats'].length, (i) {
                                   return TextFrave(
                                       text:
                                           '${latestTicket['selectedSeats']}');
@@ -215,10 +215,10 @@ if (latestTicket == null) {
                       children: List.generate(31,
                           (index) => TextFrave(text: '- ', color: Colors.grey)),
                     ),
-                    SizedBox(height: 20.0),
+                    SizedBox(height: 10.0),
                     SizedBox(
-                      height: 100,
-                      width: 100,
+                      height: 120,
+                      width: 120,
                       child: Image(image: AssetImage('images/qrcode.png')),
                     )
                   ],

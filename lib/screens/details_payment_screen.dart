@@ -44,6 +44,7 @@ class _DetailsPaymentPageState extends State<DetailsPaymentPage> {
     'date': cinemabloc.state.date,
     'selectedSeats': cinemabloc.state.selectedSeats,
     'time': cinemabloc.state.time,
+    'tickets': cinemabloc.state.selectedSeats.length,
     'image': cinemabloc.state.imageMovie,
   };
   await FirebaseFirestore
@@ -91,6 +92,7 @@ class _DetailsPaymentPageState extends State<DetailsPaymentPage> {
           ],
         ),
       body: SafeArea(
+                child: SingleChildScrollView(
         child: Stack(
           children: [
             Padding(
@@ -201,6 +203,7 @@ class _DetailsPaymentPageState extends State<DetailsPaymentPage> {
                 child: Icon(Icons.circle, color: Color(0xff21242C))),
           ],
         ),
+      ),
       ),
     );
   }
