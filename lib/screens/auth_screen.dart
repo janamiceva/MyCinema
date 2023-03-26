@@ -1,8 +1,11 @@
 import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../helpers/auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 enum AuthMode { Signup, Login }
 
@@ -76,35 +79,79 @@ class _AuthCardState extends State<AuthCard> {
     'password': '',
   };
   var _isLoading = false;
+  final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  Future<void> _submit() async {
-    if (!_formKey.currentState.validate()) {
-      // Invalid!
-      return;
-    }
-    _formKey.currentState.save();
-    setState(() {
-      _isLoading = true;
-    });
-    if (_authMode == AuthMode.Login) {
-      // Log user in
-      await Provider.of<Auth>(context, listen: false).login(
-        _authData['email'],
-        _authData['password'],
+ Future<void> _submit() async {
+  if (!_formKey.currentState.validate()) {
+    // Invalid!
+    return;
+  }
+  _formKey.currentState.save();
+  setState(() {
+    _isLoading = true;
+  });
+  if (_authMode == AuthMode.Login) {
+    // Log user in
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _authData['email'],
+        password: _authData['password'],
       );
       Navigator.of(context).pushReplacementNamed('/welcomePage');
-    } else {
-      // Sign user up
-      await Provider.of<Auth>(context, listen: false).signup(
-        _authData['email'],
-        _authData['password'],
+    } on FirebaseAuthException catch (error) {
+      String errorMessage = 'Authentication failed';
+      if (error.code == 'user-not-found') {
+        errorMessage = 'No user found for that email';
+      } else if (error.code == 'wrong-password') {
+        errorMessage = 'Wrong password provided for that user';
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(errorMessage),
+          backgroundColor: Theme.of(context).errorColor,
+        ),
       );
+      setState(() {
+        _isLoading = false;
+      });
     }
-    setState(() {
-      _isLoading = false;
-    });
+  } else {
+    // Sign user up
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+              email: _authData['email'], password: _authData['password']);
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userCredential.user.uid)
+          .set({'email': _authData['email']});
+      Navigator.of(context).pushReplacementNamed('/welcomePage');
+    } on FirebaseAuthException catch (error) {
+      String errorMessage = 'Authentication failed';
+      if (error.code == 'weak-password') {
+        errorMessage = 'The password provided is too weak';
+      } else if (error.code == 'email-already-in-use') {
+        errorMessage = 'The account already exists for that email';
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(errorMessage),
+          backgroundColor: Theme.of(context).errorColor,
+        ),
+      );
+      setState(() {
+        _isLoading = false;
+      });
+    } catch (error) {
+      print(error);
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
+}
+
 
   void _switchAuthMode() {
     if (_authMode == AuthMode.Login) {
@@ -142,6 +189,7 @@ class _AuthCardState extends State<AuthCard> {
                     icon: Icon(Icons.mail),
                   ),
                   keyboardType: TextInputType.emailAddress,
+                  controller: _emailController,
                   validator: (value) {
                     if (value.isEmpty || !value.contains('@')) {
                       return 'Invalid email!';

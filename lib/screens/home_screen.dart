@@ -13,6 +13,7 @@ import '../screens/profile_screen.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import '../helpers/search_bar.dart';
+import 'ticket_display_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -142,7 +143,7 @@ class HomeScreen extends StatelessWidget {
                 icon: Icons.local_attraction_rounded,
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => DetailsPaymentPage()));
+                      builder: (context) => TicketDisplayPage()));
                 },
               ),
               GButton(

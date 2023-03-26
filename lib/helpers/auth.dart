@@ -1,39 +1,81 @@
-import 'package:flutter/widgets.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'package:firebase_auth/firebase_auth.dart';
 
-class Auth extends ChangeNotifier {
-  String _token;
-  DateTime _expiryDate;
-  String _userId;
+final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  Future<void> signup(String email, String password) async {
-    var url = Uri.parse(
-        'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDkGPuzMer6qWCYPcWCzDvyRQ31FN7nzx4');
-    try {
-      final response = await http.post(
-        url,
-        body: json.encode({
-          'email': email,
-          'password': password,
-          'returnSecureToken': true,
-        }),
-      );
-    } catch (error) {
-      throw error;
+
+Future<String> registerWithEmailAndPassword(String email, String password) async {
+  try {
+    UserCredential result = await _auth.createUserWithEmailAndPassword(
+        email: email, password: password);
+    User user = result.user;
+    return null;
+  } on FirebaseAuthException catch (e) {
+    if (e.code == 'weak-password') {
+      return 'The password provided is too weak.';
+    } else if (e.code == 'email-already-in-use') {
+      return 'The account already exists for that email.';
     }
-  }
-
-  Future<void> login(String email, String password) async {
-    var url = Uri.parse(
-        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDkGPuzMer6qWCYPcWCzDvyRQ31FN7nzx4');
-    final response = await http.post(
-      url,
-      body: json.encode({
-        'email': email,
-        'password': password,
-        'returnSecureToken': true,
-      }),
-    );
+    return e.message;
+  } catch (e) {
+    return e.toString();
   }
 }
+
+Future<String> signInWithEmailAndPassword(
+    String email, String password) async {
+  try {
+    UserCredential result = await _auth.signInWithEmailAndPassword(
+        email: email, password: password);
+    User user = result.user;
+    return null;
+  } on FirebaseAuthException catch (e) {
+    if (e.code == 'user-not-found') {
+      return 'No user found for that email.';
+    } else if (e.code == 'wrong-password') {
+      return 'Wrong password provided for that user.';
+    }
+    return e.message;
+  } catch (e) {
+    return e.toString();
+  }
+}
+
+
+
+
+
+// import 'package:firebase_auth/firebase_auth.dart';
+
+// final FirebaseAuth _auth = FirebaseAuth.instance;
+// // Sign up with email and password
+// Future<UserCredential> signUpWithEmail(String email, String password) async {
+//   try {
+//     UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
+//       email: email,
+//       password: password,
+//     );
+//     return userCredential;
+//   } catch (e) {
+//     print(e);
+//     return null;
+//   }
+// }
+
+// // Sign in with email and password
+// Future<UserCredential> signInWithEmail(String email, String password) async {
+//   try {
+//     UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+//       email: email,
+//       password: password,
+//     );
+//     return userCredential;
+//   } catch (e) {
+//     print(e);
+//     return null;
+//   }
+// }
+
+// // Sign out
+// Future<void> signOut() async {
+//   await _auth.signOut();
+// }

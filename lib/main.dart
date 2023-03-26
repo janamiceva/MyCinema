@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:mycinema/screens/auth_screen.dart';
@@ -5,12 +6,14 @@ import 'package:provider/provider.dart';
 import './helpers/auth.dart';
 import './screens/welcome_screen.dart';
 import './Bloc/cinema_bloc.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 void main(List<String> args)  async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MyApp());
-}
+  runApp(MaterialApp(
+  home:MyApp()
+  ));}
 
 class MyApp extends StatelessWidget {
   final cinemaBloc = CinemaBloc();
@@ -19,9 +22,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider.value(
-          value: Auth(),
-        ),
         Provider<CinemaBloc>(
           create: (_) => CinemaBloc(),
         ),

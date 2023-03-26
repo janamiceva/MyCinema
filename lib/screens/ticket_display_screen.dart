@@ -10,55 +10,88 @@ import 'location_screen.dart';
 
 
 
-class DetailsPaymentPage extends StatefulWidget {
+class TicketDisplayPage extends StatefulWidget {
   @override
-  State<DetailsPaymentPage> createState() => _DetailsPaymentPageState();
+  State<TicketDisplayPage> createState() => _TicketDisplayPageState();
 }
 
-class _DetailsPaymentPageState extends State<DetailsPaymentPage> {
+class _TicketDisplayPageState extends State<TicketDisplayPage> {
+  Map<String, dynamic> latestTicket = {};
 
   @override
   void initState() {
     super.initState();
     // Call your function here
     Future.delayed(Duration.zero, () async {
-      await savePaymentDetails();
+      await getTickets();
     });
-
   }
   
-  Future<void> savePaymentDetails() async {
-    final size = MediaQuery.of(context).size;
-    final cinemabloc = BlocProvider.of<CinemaBloc>(context);
-  final FirebaseAuth auth = FirebaseAuth.instance;
-  final User user = auth.currentUser;
-  if(user == null){
-        print('No user authenticated!');
+  Future<void> getTickets() async{
+    final currentUser = FirebaseAuth.instance.currentUser;
+final email = currentUser.email;
+if (email == null) {
+  print('Error');
+}
+final querySnapshot = await FirebaseFirestore.instance
+  .collection('users')
+  .doc(FirebaseAuth.instance.currentUser.uid)
+  .collection('tickets')
+  .orderBy('date', descending: true)
+  .limit(1)
+  .get();
+setState(() {
+      if (querySnapshot.docs.isNotEmpty) {
+        latestTicket = querySnapshot.docs.first.data();
+      } else {
+        latestTicket = null;
+      }
+    });
   }
-  final email = user.email;
-  if (email == null) {
-    // handle the case when the user is not authenticated
-    print('No user authenticated!');
-}
-  final paymentDetails = {
-    'date': cinemabloc.state.date,
-    'selectedSeats': cinemabloc.state.selectedSeats,
-    'time': cinemabloc.state.time,
-    'image': cinemabloc.state.imageMovie,
-  };
-  await FirebaseFirestore
-    .instance
-    .collection('users')
-    .doc(user.uid)
-    .collection(
-        'tickets')
-    .add(paymentDetails);
-}
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final cinemabloc = BlocProvider.of<CinemaBloc>(context);
+    
+if (latestTicket == null) {
+    return Scaffold(
+      backgroundColor: Color(0xffba68c8),
+      appBar: AppBar(
+          backgroundColor: Colors.purple.shade300,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back, color: Colors.white, size: 20),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => HomeScreen()),
+              );
+            },
+          ),
+          elevation: 4,
+          title: Center(
+            child: Text(
+              'MyCinema',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            ),
+          ),
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => LocationScreen()),
+                );
+              },
+              icon: Icon(Icons.location_pin),
+            ),
+            SizedBox(width: 15.0),
+          ],
+        ),
+      body: Center(
+        child: Text('No tickets found.',
+      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18,)),
+      ),
+    );
+  }
+  else
     return Scaffold(
       backgroundColor: Color(0xffba68c8),
       appBar: AppBar(
@@ -91,6 +124,7 @@ class _DetailsPaymentPageState extends State<DetailsPaymentPage> {
           ],
         ),
       body: SafeArea(
+        child: SingleChildScrollView(
         child: Stack(
           children: [
             Padding(
@@ -111,7 +145,7 @@ class _DetailsPaymentPageState extends State<DetailsPaymentPage> {
                               BorderRadius.vertical(top: Radius.circular(15.0)),
                           image: DecorationImage(
                               fit: BoxFit.cover,
-                              image: AssetImage(cinemabloc.state.imageMovie))),
+                              image: AssetImage(latestTicket['image']))),
                     ),
                     SizedBox(height: 20.0),
                     Padding(
@@ -122,10 +156,10 @@ class _DetailsPaymentPageState extends State<DetailsPaymentPage> {
                           Column(
                             children: [
                               TextFrave(
-                                  text: 'DATE',
+                                  text: 'Date:',
                                   color: Colors.grey,
                                   fontSize: 16),
-                              TextFrave(text: cinemabloc.state.date),
+                              TextFrave(text: latestTicket['date']),
                             ],
                           ),
                           Column(
@@ -135,8 +169,8 @@ class _DetailsPaymentPageState extends State<DetailsPaymentPage> {
                                   color: Colors.grey,
                                   fontSize: 16),
                               TextFrave(
-                                  text:
-                                      '${cinemabloc.state.selectedSeats.length}'),
+                                text: latestTicket['date'],
+                                )
                             ],
                           ),
                         ],
@@ -150,16 +184,16 @@ class _DetailsPaymentPageState extends State<DetailsPaymentPage> {
                           Column(
                             children: [
                               TextFrave(
-                                  text: 'TIME',
+                                  text: 'Time: ',
                                   color: Colors.grey,
                                   fontSize: 16),
-                              TextFrave(text: cinemabloc.state.time),
+                              TextFrave(text: latestTicket['time']),
                             ],
                           ),
                           Column(
                             children: [
                               TextFrave(
-                                  text: 'SEATS',
+                                  text: 'Seats:',
                                   color: Colors.grey,
                                   fontSize: 16),
                               Row(
@@ -167,7 +201,7 @@ class _DetailsPaymentPageState extends State<DetailsPaymentPage> {
                                     cinemabloc.state.selectedSeats.length, (i) {
                                   return TextFrave(
                                       text:
-                                          '${cinemabloc.state.selectedSeats[i]} ');
+                                          '${latestTicket['selectedSeats']}');
                                 }),
                               )
                             ],
@@ -181,10 +215,10 @@ class _DetailsPaymentPageState extends State<DetailsPaymentPage> {
                       children: List.generate(31,
                           (index) => TextFrave(text: '- ', color: Colors.grey)),
                     ),
-                    SizedBox(height: 10.0),
+                    SizedBox(height: 20.0),
                     SizedBox(
-                      height: 120,
-                      width: 120,
+                      height: 100,
+                      width: 100,
                       child: Image(image: AssetImage('images/qrcode.png')),
                     )
                   ],
@@ -200,6 +234,7 @@ class _DetailsPaymentPageState extends State<DetailsPaymentPage> {
                 right: 15,
                 child: Icon(Icons.circle, color: Color(0xff21242C))),
           ],
+        ),
         ),
       ),
     );
