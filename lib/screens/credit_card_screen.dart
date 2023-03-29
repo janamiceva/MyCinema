@@ -3,7 +3,6 @@ import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'details_payment_screen.dart';
 import 'location_screen.dart';
 import 'home_screen.dart';
-import 'details_movie_screen.dart';
 
 class CreditCardPage extends StatefulWidget {
   const CreditCardPage({Key key}) : super(key: key);

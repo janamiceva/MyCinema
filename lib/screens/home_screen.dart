@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:mycinema/screens/details_payment_screen.dart';
 import 'package:mycinema/screens/location_screen.dart';
 import 'package:mycinema/screens/review_screen.dart';
 import 'package:mycinema/screens/welcome_screen.dart';

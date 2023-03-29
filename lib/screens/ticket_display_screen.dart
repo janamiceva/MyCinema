@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import '../Bloc/cinema_bloc.dart';
 import '../widgets/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -51,7 +49,6 @@ setState(() {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final cinemabloc = BlocProvider.of<CinemaBloc>(context);
     
 if (latestTicket == null) {
     return Scaffold(
@@ -169,7 +166,7 @@ if (latestTicket == null) {
                                   color: Colors.grey,
                                   fontSize: 16),
                               TextFrave(
-                                text: latestTicket['tickets'],
+                                text: latestTicket['tickets'].toString(),
                                 )
                             ],
                           ),
@@ -201,7 +198,7 @@ if (latestTicket == null) {
                                     latestTicket['selectedSeats'].length, (i) {
                                   return TextFrave(
                                       text:
-                                          '${latestTicket['selectedSeats']}');
+                                          '${latestTicket['selectedSeats']}'.toString());
                                 }),
                               )
                             ],

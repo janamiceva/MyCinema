@@ -7,9 +7,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'home_screen.dart';
 import 'location_screen.dart';
 
-
-
-
 class DetailsPaymentPage extends StatefulWidget {
   @override
   State<DetailsPaymentPage> createState() => _DetailsPaymentPageState();
@@ -28,7 +25,6 @@ class _DetailsPaymentPageState extends State<DetailsPaymentPage> {
   }
   
   Future<void> savePaymentDetails() async {
-    final size = MediaQuery.of(context).size;
     final cinemabloc = BlocProvider.of<CinemaBloc>(context);
   final FirebaseAuth auth = FirebaseAuth.instance;
   final User user = auth.currentUser;

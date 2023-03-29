@@ -6,7 +6,6 @@ import 'location_screen.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-
 import 'review_screen.dart';
 
 class CineplexxReviewScreen extends StatefulWidget {

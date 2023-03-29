@@ -7,8 +7,6 @@ import '../helpers/painter.dart';
 import '../models/armchairs_model.dart';
 import '../models/datetime_model.dart';
 import '../widgets/seats.dart';
-
-import 'details_payment_screen.dart';
 import '../widgets/widgets.dart';
 import 'credit_card_screen.dart';
 
