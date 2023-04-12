@@ -225,11 +225,11 @@ if (latestTicket == null) {
             Positioned(
                 top: size.height * .695,
                 left: 15,
-                child: Icon(Icons.circle, color: Color(0xff21242C))),
+                child: Icon(Icons.circle, color: Color(0xffba68c8))),
             Positioned(
                 top: size.height * .695,
                 right: 15,
-                child: Icon(Icons.circle, color: Color(0xff21242C))),
+                child: Icon(Icons.circle, color: Color(0xffba68c8))),
           ],
         ),
         ),

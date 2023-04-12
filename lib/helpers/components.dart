@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/widgets.dart';
@@ -7,6 +8,9 @@ import 'profile_picture.dart';
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
+    final name = user?.displayName ?? "Guest"; // Use "Guest" if name is null
+
     return SingleChildScrollView(
       padding: EdgeInsets.symmetric(vertical: 20),
       child: Column(
@@ -14,15 +18,11 @@ class Body extends StatelessWidget {
           ProfilePicture(),
           SizedBox(height: 20),
           TextFrave(
-                text: "Maddy",
-                color: Colors.white,
-                fontSize: 25,
-                fontWeight: FontWeight.w500),
-          TextFrave(
-                text: "@maddy1999",
-                color: Colors.white,
-                fontSize: 15,
-                fontWeight: FontWeight.w100),
+            text: "${user?.email}",
+            color: Colors.white,
+            fontSize: 25,
+            fontWeight: FontWeight.w500,
+          ),
           ProfileMenu(
             text: "Edit Profile",
             icon: "images/profile.svg",
